@@ -4,6 +4,7 @@ neo4j-football-stadiums
 Using neo4j spatial to create and query British Football Stadiums
 
 To get started:
+
     curl "http://download.neo4j.org/artifact?edition=community&version=1.9&distribution=tarball" -o neo4j.tar.gz
     tar -xvf neo4j.tar.gz
     bundle install
