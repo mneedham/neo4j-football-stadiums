@@ -16,11 +16,11 @@ contents.shift
 contents.each do |row|
   name, team, capacity, lat, long = row
 
-	node_id = HTTParty.post("http://localhost:7474/db/data/node", 		
+  node_id = HTTParty.post("http://localhost:7474/db/data/node", 		
     :body => { :lat => lat.to_f, :lon => long.to_f, :name => name, :team => team, :capacity => capacity }.to_json,
     :headers => { 'Content-Type' => 'application/json' } )['self'].split("/")[-1]
 
-	HTTParty.post("http://localhost:7474/db/data/index/node/geom", 		
-	  :body => { :key => 'dummy', :value => 'dummy', :uri => "http://localhost:7474/db/data/node/#{node_id}"}.to_json,
-	  :headers => { 'Content-Type' => 'application/json' } )
+  HTTParty.post("http://localhost:7474/db/data/index/node/geom", 		
+    :body => { :key => 'dummy', :value => 'dummy', :uri => "http://localhost:7474/db/data/node/#{node_id}"}.to_json,
+    :headers => { 'Content-Type' => 'application/json' } )
 end
