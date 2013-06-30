@@ -11,8 +11,12 @@ var Map = function(options) {
 
 	var stadiumMarkers = [];
 
-	function markerAt(latLong) {
-		return L.marker([latLong.lat, latLong.lng]).addTo(map);
+	function markerAt(options) {
+		if(options.icon) {
+			return L.marker([options.lat, options.lng], {icon: options.icon}).addTo(map);	
+		}
+		return L.marker([options.lat, options.lng]).addTo(map);
+		
 	}
 
 	function diameterAt(latLong, distance) {
@@ -50,8 +54,14 @@ var Map = function(options) {
 				callback(e);	
 			});			
 		},
-		addStadium : function(options) {			
-			var stadiumMarker = markerAt({lat: options.lat, lng: options.lon});	
+		addStadium : function(options) {		
+			console.log('adding stadium')
+			var stadiumIcon = L.icon({
+			    iconUrl: 'leaflet/images/marker-stadium-icon.png',			    
+			    iconSize:     [25, 27],
+			});
+
+			var stadiumMarker = markerAt({lat: options.lat, lng: options.lon, icon: stadiumIcon});	
 			stadiumMarker.bindPopup("<strong>" + options.stadium + "</strong><br />" + options.team);
 			stadiumMarkers.push(stadiumMarker);
 		},
