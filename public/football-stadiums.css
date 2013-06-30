@@ -1,3 +1,8 @@
 ul { list-style-type: none; }
 
 #map { height: 450px; }
+
+#stadium-search button {
+	margin-top: 17px;
+	margin-left: 15px;
+}

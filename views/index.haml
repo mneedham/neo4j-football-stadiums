@@ -18,11 +18,17 @@
 			%div.row
 				%div.span6
 					%form.form-inline#stadium-search
-						%div.control-group
+						%div.control-group						
 							%div.controls
-								%input#inputLatLong.input-xlarge{ :type => "Text", :placeholder => "Latitude, Longitude", :name => "latLong"}
-								%input#inputDistance.input-small{ :type => "Text", :placeholder => "Distance", :name => "distance" }
-								%button{:type=> "submit", :class=>"btn btn-primary"}= "Search"
+								%div.row-fluid
+									%div.span6
+										%label= "Lat/Long"
+										%input#inputLatLong.input-xlarge{ :type => "Text", :placeholder => "Latitude, Longitude", :name => "latLong"}
+									%div.span3
+										%label= "Distance"
+										%input#inputDistance.input-small{ :type => "Text", :placeholder => "Distance", :name => "distance" }
+									%div.span3
+										%button{:type=> "submit", :class=>"btn btn-primary"}= "Find Stadiums"
 					%div#map				
 				%div.span6.results
 

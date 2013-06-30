@@ -7,6 +7,8 @@ GEM
   remote: http://gemcutter.org/
   remote: http://gems.github.com/
   specs:
+    haml (4.0.0)
+      tilt
     httparty (0.10.2)
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
@@ -39,6 +41,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
   httparty
   json (~> 1.7.7)
   neography
