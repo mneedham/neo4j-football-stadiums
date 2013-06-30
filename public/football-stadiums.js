@@ -8,14 +8,13 @@ $(document).ready(function() {
 	var map = Map({element: 'map', position: startPosition, distanceElement: $("#inputDistance"), zoom: 11 });
 
 	$("#inputDistance").change(function() {	
-		map.updateBoundary($(this).val());	
+		map.updateBoundary();	
 		stadiums.update();
 	})
 
-	map.on('click', function(e) {
+	map.onClick(function(e) {
 		var latLong = e.latlng;
 		$("#inputLatLong").val(latLong.lat + "," + latLong.lng);		
-		map.recentre(e.latlng, $("#inputDistance").val());
 		stadiums.update();
 	});
 

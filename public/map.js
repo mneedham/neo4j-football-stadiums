@@ -16,6 +16,15 @@ var Map = function(options) {
 		return L.circle(latLong, distance * 1000, {draggable: true}).addTo(map);
 	}
 
+	function recentre(latLong) {
+			map.panTo(latLong);
+			map.removeLayer(currentPositionMarker);
+			currentPositionMarker = markerAt(latLong);
+
+			map.removeLayer(currentDiameter);
+			currentDiameter = diameterAt([latLong.lat, latLong.lng], distance.val());
+	}
+
 	var obj = {
 		innerMap: function() {
 			return map;
@@ -25,16 +34,12 @@ var Map = function(options) {
 			currentDiameter = diameterAt(currentPositionMarker.getLatLng(), distance.val());
 			map.fitBounds(currentDiameter.getBounds());
 		},
-		recentre : function(latLong) {
-			map.panTo(latLong);
-			map.removeLayer(currentPositionMarker);
-			currentPositionMarker = markerAt(latLong);
-
-			map.removeLayer(currentDiameter);
-			currentDiameter = diameterAt([latLong.lat, latLong.lng], distance.val());
-		},
-		on: function(action, callback) {
-			map.on(action, callback)
+		recentre : recentre,
+		onClick: function(callback) {			
+			map.on('click', function(e) {
+				recentre(e.latlng);
+				callback(e);	
+			});			
 		},
 
 	};
