@@ -42,6 +42,10 @@ var Map = function(options) {
 				callback(e);	
 			});			
 		},
+		addStadium : function(options) {
+			var stadiumMarker = markerAt({lat: options.lat, lng: options.lon});	
+			stadiumMarker.bindPopup("<strong>" + options.stadium + "</strong><br />" + options.team);
+		},
 
 	};
 	return obj;

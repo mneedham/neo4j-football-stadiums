@@ -38,7 +38,8 @@ var Stadiums = function(options) {
 		var result = buildTableHeader();
 		$.getJSON('/stadiums/' + lat + "/" + lon + "/" + distance, function(data) {
 			$.each(data, function(key, val) {
-				result += addRow(val);				
+				result += addRow(val);
+				map.addStadium(val);
 			});
 
 			if(data.length == 0) {
