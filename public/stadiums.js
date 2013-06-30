@@ -36,6 +36,7 @@ var Stadiums = function(options) {
 		var distance = distanceField.val();
 
 		var result = buildTableHeader();
+		map.clearStadiumMarkers();
 		$.getJSON('/stadiums/' + lat + "/" + lon + "/" + distance, function(data) {
 			$.each(data, function(key, val) {
 				result += addRow(val);

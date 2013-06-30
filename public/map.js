@@ -9,6 +9,8 @@ var Map = function(options) {
   var currentPositionMarker = markerAt({ "lat" : startPosition[0], "lng" : startPosition[1]});
 	var currentDiameter = diameterAt(startPosition, distance.val());
 
+	var stadiumMarkers = [];
+
 	function markerAt(latLong) {
 		return L.marker([latLong.lat, latLong.lng]).addTo(map);
 	}
@@ -24,6 +26,12 @@ var Map = function(options) {
 
 			map.removeLayer(currentDiameter);
 			currentDiameter = diameterAt([latLong.lat, latLong.lng], distance.val());
+	}
+
+	function clearStadiumMarkers() {
+		$.each(stadiumMarkers, function(idx, marker) {
+			map.removeLayer(marker);
+		});
 	}
 
 	var obj = {
@@ -42,10 +50,12 @@ var Map = function(options) {
 				callback(e);	
 			});			
 		},
-		addStadium : function(options) {
+		addStadium : function(options) {			
 			var stadiumMarker = markerAt({lat: options.lat, lng: options.lon});	
 			stadiumMarker.bindPopup("<strong>" + options.stadium + "</strong><br />" + options.team);
+			stadiumMarkers.push(stadiumMarker);
 		},
+		clearStadiumMarkers : clearStadiumMarkers,
 
 	};
 	return obj;
