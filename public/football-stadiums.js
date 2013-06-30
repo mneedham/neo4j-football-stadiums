@@ -5,16 +5,21 @@ $(document).ready(function() {
 	$("#inputDistance").val(startDistance);
 	
 	var map = L.map('map').setView(startPosition, 11);
-	L.tileLayer('http://{s}.tile.cloudmade.com/e7b61e61295a44a5b319ca0bd3150890/997/256/{z}/{x}/{y}.png', {
+	var layer = L.tileLayer('http://{s}.tile.cloudmade.com/e7b61e61295a44a5b319ca0bd3150890/997/256/{z}/{x}/{y}.png', {
     maxZoom: 18
-    }).addTo(map);
+    });
+
+    layer.addTo(map);
 
 	var currentPositionMarker = markerAt({ "lat" : startPosition[0], "lng" : startPosition[1]});
 	var currentDiameter = diameterAt(startPosition, startDistance);
 
-	$("#inputDistance").change(function() {
+	$("#inputDistance").change(function() {		
 		map.removeLayer(currentDiameter);
-		currentDiameter = diameterAt(currentPositionMarker.getLatLng(), $(this).val());		
+		currentDiameter = diameterAt(currentPositionMarker.getLatLng(), $(this).val());
+		map.fitBounds(currentDiameter.getBounds());
+
+		$("#stadium-search").submit();
 	})
 
 	function markerAt(latLong) {
@@ -35,6 +40,8 @@ $(document).ready(function() {
 
 		map.removeLayer(currentDiameter);
 		currentDiameter = diameterAt([e.latlng.lat, e.latlng.lng], $("#inputDistance").val());
+
+		$("#stadium-search").submit();
 	});
 
 	$("#stadium-search").submit(function(e) {
@@ -67,4 +74,6 @@ $(document).ready(function() {
 
 		return false;		
 	});
+
+	$("#stadium-search").submit();
 });
