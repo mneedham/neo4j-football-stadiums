@@ -9,14 +9,14 @@ $(document).ready(function() {
 
 	$("#inputDistance").change(function() {	
 		map.updateBoundary();	
-		stadiums.update();
+		stadiums.refresh();
 	})
 
 	map.onClick(function(e) {
 		var latLong = e.latlng;
 		$("#inputLatLong").val(latLong.lat + "," + latLong.lng);		
-		stadiums.update();
+		stadiums.refresh();
 	});
 
-	stadiums.update();
+	stadiums.refresh();
 });

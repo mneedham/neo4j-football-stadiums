@@ -36,7 +36,7 @@ var Stadiums = function(options) {
 	});
 
 	var obj = {
-		update : function() {
+		refresh : function() {
 			formElement.submit();
 		}
 	}
