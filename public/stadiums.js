@@ -2,8 +2,8 @@ var Stadiums = function(options) {
 	var formElement = options.form;
 	var latLongField = options.latLong;
 	var distanceField = options.distance;
-
 	var NO_STADIUMS_MESSAGE = "No stadiums found - try changing location or distance";
+
 	formElement.submit(function(e) {
 		e.preventDefault();
 		var lat = latLongField.val().split(",")[0].trim(); 

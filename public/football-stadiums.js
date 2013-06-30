@@ -1,19 +1,24 @@
 $(document).ready(function() {		
-	var stadiums = Stadiums({ form : $("#stadium-search"), latLong: $("#inputLatLong"), distance: $("#inputDistance")});
+	var stadiums = Stadiums({form : $("#stadium-search"), latLong: $("#inputLatLong"), distance: $("#inputDistance")});
+
 
 	var startPosition = [51.505, -0.11398315429687499];
 	var startDistance = 10;
 	$("#inputLatLong").val(startPosition);
 	$("#inputDistance").val(startDistance);
 	
-	var map = L.map('map').setView(startPosition, 11);
-	var layer = L.tileLayer('http://{s}.tile.cloudmade.com/e7b61e61295a44a5b319ca0bd3150890/997/256/{z}/{x}/{y}.png', { maxZoom: 18 });
-    layer.addTo(map);
+	var myMap = Map({element: 'map', position: startPosition, distance: startDistance, zoom: 11 });
+	var map = myMap.innerMap();
+
+	// var map = L.map('map').setView(startPosition, 11);
+	// var layer = L.tileLayer('http://{s}.tile.cloudmade.com/e7b61e61295a44a5b319ca0bd3150890/997/256/{z}/{x}/{y}.png', { maxZoom: 18 });
+ //    layer.addTo(map);
 
 	var currentPositionMarker = markerAt({ "lat" : startPosition[0], "lng" : startPosition[1]});
 	var currentDiameter = diameterAt(startPosition, startDistance);
 
-	$("#inputDistance").change(function() {		
+	$("#inputDistance").change(function() {	
+		// map.updateBoundary();	
 		map.removeLayer(currentDiameter);
 		currentDiameter = diameterAt(currentPositionMarker.getLatLng(), $(this).val());
 		map.fitBounds(currentDiameter.getBounds());
