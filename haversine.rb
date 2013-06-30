@@ -1,5 +1,4 @@
 def haversine(lat1, long1, lat2, long2)
-  p lat1, long1, lat2, long2
   dtor = Math::PI/180
   r = 6378.14
  
