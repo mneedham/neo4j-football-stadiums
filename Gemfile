@@ -8,3 +8,6 @@ source "http://gems.github.com"
 
 gem 'httparty'
 gem 'json', '~> 1.7.7'
+gem 'sinatra'
+gem 'neography'
+gem 'shotgun'
