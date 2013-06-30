@@ -1,5 +1,5 @@
 $(document).ready(function() {		
-	var stadiums = Stadiums($("#stadium-search"));
+	var stadiums = Stadiums({ form : $("#stadium-search"), latLong: $("#inputLatLong"), distance: $("#inputDistance")});
 
 	var startPosition = [51.505, -0.11398315429687499];
 	var startDistance = 10;

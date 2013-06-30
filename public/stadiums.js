@@ -1,10 +1,14 @@
-var Stadiums = function(formElement) {
+var Stadiums = function(options) {
+	var formElement = options.form;
+	var latLongField = options.latLong;
+	var distanceField = options.distance;
+
 	var NO_STADIUMS_MESSAGE = "No stadiums found - try changing location or distance";
 	formElement.submit(function(e) {
 		e.preventDefault();
-		var lat = $("#inputLatLong").val().split(",")[0].trim(); 
-		var lon = $("#inputLatLong").val().split(",")[1].trim(); 
-		var distance = $("#inputDistance").val();
+		var lat = latLongField.val().split(",")[0].trim(); 
+		var lon = latLongField.val().split(",")[1].trim(); 
+		var distance = distanceField.val();
 
 		var result = "<table class=\"table\"><thead>";
 		result += "<tr><th>Team</th><th>Stadium</th><th>Distance (km)</th></tr>";
