@@ -6,7 +6,7 @@ var Map = function(options) {
 	var layer = L.tileLayer('http://{s}.tile.cloudmade.com/e7b61e61295a44a5b319ca0bd3150890/997/256/{z}/{x}/{y}.png', { maxZoom: 18 });
   layer.addTo(map);
   
-  var currentPositionMarker = markerAt({ "lat" : startPosition[0], "lng" : startPosition[1]});
+  	var currentPositionMarker = markerAt({ "lat" : startPosition[0], "lng" : startPosition[1]});
 	var currentDiameter = diameterAt(startPosition, distance.val());
 
 	var stadiumMarkers = [];

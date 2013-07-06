@@ -9,13 +9,31 @@ footballStadiumsModule.factory('stadiumsService', function($rootScope) {
 	};
 
 	service.broadcastStadiums = function() {
-		$rootScope.$broadcast('handleBroadcast');
+		$rootScope.$broadcast('stadiumsUpdated');
 	};
 
 	return service;
 });
 
-function StadiumSearchFormCtrl($scope, $http, stadiumsService) {	
+footballStadiumsModule.factory('mapService', function($rootScope) {
+	var service = {};
+	var map = Map({element: 'map', position: [51.505, -0.11398315429687499], distanceElement: $("#inputDistance"), zoom: 11 });
+
+	map.onClick(function(e) {
+		var latLong = e.latlng;
+		service.latLong = latLong;
+		$rootScope.$broadcast('mapUpdated');
+	});
+
+
+	service.addStadium = map.addStadium;
+	service.clearStadiumMarkers = map.clearStadiumMarkers;
+	service.updateBoundary = map.updateBoundary;
+
+	return service;
+});
+
+function StadiumSearchFormCtrl($scope, $http, stadiumsService, mapService) {	
 	$scope.latLong = "51.505, -0.11398315429687499";
 	$scope.distance = 10;
 
@@ -24,46 +42,33 @@ function StadiumSearchFormCtrl($scope, $http, stadiumsService) {
 			var lat = this.latLong.split(",")[0].trim(); 
 			var lon = this.latLong.split(",")[1].trim();
 
+			mapService.clearStadiumMarkers();
+
 			$http.get('/stadiums/' + lat + "/" + lon + "/" + this.distance).success(function(data) {
 				stadiumsService.updateStadiums(data);
   		});
     }
   };
+
+	$scope.$on('mapUpdated',  function() {		
+		$scope.latLong = mapService.latLong.lat + "," + mapService.latLong.lng;
+		$scope.submit();
+	});  
+
+	$scope.submit();
 }
 
-function StadiumSearchResultsCtrl($scope, stadiumsService) {	
-	$scope.$on('handleBroadcast',  function() {		
+function StadiumSearchPageCtrl($scope, stadiumsService, mapService) {	
+	$scope.$on('stadiumsUpdated',  function() {		
 		$scope.stadiums = stadiumsService.stadiums;
-	});
+
+		$.each($scope.stadiums, function(key,val) {
+			mapService.addStadium(val);
+		})
+
+		mapService.updateBoundary();	
+	});	
 }
 
-StadiumSearchResultsCtrl.$inject = ['$scope', 'stadiumsService'];
-StadiumSearchFormCtrl.$inject = ['$scope', '$http', 'stadiumsService'];
-
-// $(document).ready(function() {		
-// 	var startPosition = [51.505, -0.11398315429687499];
-// 	$("#inputLatLong").val(startPosition);
-// 	$("#inputDistance").val(10);
-	
-// 	var map = Map({element: 'map', position: startPosition, distanceElement: $("#inputDistance"), zoom: 11 });
-	
-// 	var stadiums = Stadiums({
-// 		form : $("#stadium-search"), 
-// 		latLong: $("#inputLatLong"), 
-// 		distance: $("#inputDistance"), 
-// 		map: map
-// 	});
-
-// 	$("#inputDistance").change(function() {	
-// 		map.updateBoundary();	
-// 		stadiums.refresh();
-// 	})
-
-// 	map.onClick(function(e) {
-// 		var latLong = e.latlng;
-// 		$("#inputLatLong").val(latLong.lat + "," + latLong.lng);		
-// 		stadiums.refresh();
-// 	});
-
-// 	stadiums.refresh();
-// });
+StadiumSearchPageCtrl.$inject = ['$scope', 'stadiumsService', 'mapService'];
+StadiumSearchFormCtrl.$inject = ['$scope', '$http', 'stadiumsService', 'mapService'];

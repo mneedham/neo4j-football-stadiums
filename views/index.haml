@@ -14,7 +14,7 @@
 		%script(src="map.js" type="text/javascript")
 		%script(src="football-stadiums.js" type="text/javascript")
 
-	%body
+	%body{"ng-controller" => "StadiumSearchPageCtrl"}
 		%div.container-fluid
 			%h3= "UK Football Stadiums"
 			%div.row
@@ -32,7 +32,7 @@
 									%div.span3
 										%button{:type=> "submit", :class=>"btn btn-primary"}= "Find Stadiums"									
 					%div#map				
-				%div.span6.results{"ng-controller" => "StadiumSearchResultsCtrl"}
+				%div.span6.results
 					%table.table
 						%thead
 							%tr
