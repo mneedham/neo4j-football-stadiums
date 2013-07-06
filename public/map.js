@@ -55,7 +55,6 @@ var Map = function(options) {
 			});			
 		},
 		addStadium : function(options) {		
-			console.log('adding stadium')
 			var stadiumIcon = L.icon({
 			    iconUrl: 'leaflet/images/marker-stadium-icon.png',			    
 			    iconSize:     [25, 27],
