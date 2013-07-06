@@ -1,11 +1,18 @@
 var footballStadiumsModule = angular.module('footballStadiumsModule', []);
-footballStadiumsModule.factory('stadiumsService', function($rootScope) {
+footballStadiumsModule.factory('stadiumsService', function($rootScope, $http) {
 	var service = {};
 	service.stadiums = [];
 
 	service.updateStadiums = function(stadiums) {
 		this.stadiums = stadiums;
 		$rootScope.$broadcast('stadiumsUpdated');
+	};
+
+	service.refreshStadiums = function(lat, lon, distance) {
+		$http.get('/stadiums/' + lat + "/" + lon + "/" + distance).success(function(data) {			
+			service.stadiums = data;
+			$rootScope.$broadcast('stadiumsUpdated');				
+		});		
 	};
 
 	return service;
@@ -38,10 +45,7 @@ function StadiumSearchFormCtrl($scope, $http, stadiumsService, mapService) {
 			var lon = this.latLong.split(",")[1].trim();
 
 			mapService.clearStadiumMarkers();
-
-			$http.get('/stadiums/' + lat + "/" + lon + "/" + this.distance).success(function(data) {
-				stadiumsService.updateStadiums(data);
-  		});
+			stadiumsService.refreshStadiums(lat, lon, this.distance);
     }
   };
 
