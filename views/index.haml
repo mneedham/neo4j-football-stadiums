@@ -9,8 +9,7 @@
 		
 		%script(src="jquery-1.10.1.js" type="text/javascript")
 		%script(src="angular.js" type="text/javascript")
-		%script(src="leaflet/leaflet-src.js" type="text/javascript")
-		%script(src="stadiums.js" type="text/javascript")
+		%script(src="leaflet/leaflet-src.js" type="text/javascript")		
 		%script(src="map.js" type="text/javascript")
 		%script(src="football-stadiums.js" type="text/javascript")
 
@@ -40,9 +39,11 @@
 								%th Stadium
 								%th Distance (km)
 						%tbody
+							%tr{"ng-hide" => "stadiums.length"}
+								%td{:colspan => 3} No stadiums found - try changing location or distance
 							%tr{"ng-repeat" => "stadium in stadiums"}	
 								%td {{stadium.team}}
 								%td {{stadium.stadium}}
-								%td {{stadium.distance}}
+								%td {{stadium.distance}}								
 
 					
