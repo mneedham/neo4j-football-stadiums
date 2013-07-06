@@ -31,26 +31,26 @@ var Stadiums = function(options) {
 
 	function onSubmitForm(e) {
 		e.preventDefault();
-		var lat = latLongField.val().split(",")[0].trim(); 
-		var lon = latLongField.val().split(",")[1].trim(); 
-		var distance = distanceField.val();
+		// var lat = latLongField.val().split(",")[0].trim(); 
+		// var lon = latLongField.val().split(",")[1].trim(); 
+		// var distance = distanceField.val();
 
-		var result = buildTableHeader();
-		map.clearStadiumMarkers();
-		$.getJSON('/stadiums/' + lat + "/" + lon + "/" + distance, function(data) {
-			$.each(data, function(key, val) {
-				result += addRow(val);
-				map.addStadium(val);
-			});
+		// var result = buildTableHeader();
+		// map.clearStadiumMarkers();
+		// $.getJSON('/stadiums/' + lat + "/" + lon + "/" + distance, function(data) {
+		// 	$.each(data, function(key, val) {
+		// 		result += addRow(val);
+		// 		map.addStadium(val);
+		// 	});
 
-			if(data.length == 0) {
-				result += "<td colspan='3'>" + NO_STADIUMS_MESSAGE + "</td>";
-			}
+		// 	if(data.length == 0) {
+		// 		result += "<td colspan='3'>" + NO_STADIUMS_MESSAGE + "</td>";
+		// 	}
 
-			result += "</tbody></table>";			
+		// 	result += "</tbody></table>";			
 
-			$("div.results").html(result)
-		});
+		// 	$("div.results").html(result)
+		// });
 
 		return false;		
 	}
