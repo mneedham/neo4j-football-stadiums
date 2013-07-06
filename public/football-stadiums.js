@@ -5,10 +5,6 @@ footballStadiumsModule.factory('stadiumsService', function($rootScope) {
 
 	service.updateStadiums = function(stadiums) {
 		this.stadiums = stadiums;
-		this.broadcastStadiums();
-	};
-
-	service.broadcastStadiums = function() {
 		$rootScope.$broadcast('stadiumsUpdated');
 	};
 
@@ -24,7 +20,6 @@ footballStadiumsModule.factory('mapService', function($rootScope) {
 		service.latLong = latLong;
 		$rootScope.$broadcast('mapUpdated');
 	});
-
 
 	service.addStadium = map.addStadium;
 	service.clearStadiumMarkers = map.clearStadiumMarkers;
