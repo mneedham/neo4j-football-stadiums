@@ -1,20 +1,17 @@
-def haversine(lat1, long1, lat2, long2)
-  dtor = Math::PI/180
-  r = 6378.14
- 
-  rlat1 = lat1 * dtor 
-  rlong1 = long1 * dtor 
-  rlat2 = lat2 * dtor 
-  rlong2 = long2 * dtor 
+def haversine(lat1, long1, lat2, long2)  
+  radius_of_earth = 6378.14 
+  rlat1, rlong1, rlat2, rlong2 = [lat1, long1, lat2, long2].map { |d| as_radians(d)}
  
   dlon = rlong1 - rlong2
   dlat = rlat1 - rlat2
  
   a = power(Math::sin(dlat/2), 2) + Math::cos(rlat1) * Math::cos(rlat2) * power(Math::sin(dlon/2), 2)
-  c = 2 * Math::atan2(Math::sqrt(a), Math::sqrt(1-a))
-  d = r * c
- 
-  d
+  great_circle_distance = 2 * Math::atan2(Math::sqrt(a), Math::sqrt(1-a))
+  radius_of_earth * great_circle_distance
+end
+
+def as_radians(degrees)
+  degrees * Math::PI/180
 end
 
 def power(num, pow)
